@@ -1,0 +1,56 @@
+name: Daily Repo Check & Commit
+
+on:
+  schedule:
+    # Runs every day at 4:00 AM IST (Asia/Kolkata)
+    # Note: GitHub may delay runs slightly near the top of the hour under load.
+    - cron: '0 4 * * *'
+      timezone: 'Asia/Kolkata'
+  workflow_dispatch:  # Allow manual trigger from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  daily-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check what's in the repo
+        run: |
+          echo "=== Repository contents (non-hidden, excluding .git) ==="
+          find . -not -path '*/\.*' -type f | head -100
+          echo ""
+          echo "=== Git tree ==="
+          git ls-tree -r HEAD --name-only
+
+      - name: Append date to README.md and commit
+        run: |
+          TIMESTAMP_IST=$(TZ=Asia/Kolkata date '+%Y-%m-%d %H:%M:%S IST')
+          TIMESTAMP_UTC=$(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          DATE_ONLY=$(TZ=Asia/Kolkata date '+%Y-%m-%d')
+
+          # Ensure a Daily updates section exists at the end of README.md
+          if ! grep -q "## Daily updates" README.md; then
+            echo "" >> README.md
+            echo "## Daily updates" >> README.md
+            echo "" >> README.md
+          fi
+
+          # Append the new date entry
+          echo "- **${DATE_ONLY}** — checked and committed at ${TIMESTAMP_IST} (${TIMESTAMP_UTC})" >> README.md
+
+          git config user.name "Sanjufied"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add README.md
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: daily README update at 4AM IST - ${TIMESTAMP_IST} [skip ci]"
+            git push
+          fi
