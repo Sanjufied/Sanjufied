@@ -1,7 +1,7 @@
 # 🌸 SV Sanju — `sanjufied` 💗
 
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=venom&height=240&color=0:FCE4EC,25:F8BBD0,50:F48FB1,75:EC407A,100:AD1457&text=Hey%20There!%20I'm%20Sanju&fontSize=43&fontColor=880E4F&animation=fadeIn&fontAlignY=45&desc=Java%20Developer%20%7C%20Python%20Enthusiast%20%E2%9C%A8&descAlignY=65&descSize=17&descColor=AD1457" width="100%" />
+  <img src="https://capsule-render.vercel.app/api?type=venom&height=240&color=0:FCE4EC,25:F8BBD0,50:F48FB1,75:EC407A,100:AD1457&text=Hey%20There!%20I'm%20Sanju&fontSize=43&fontColor=FFFFFF&animation=fadeIn&fontAlignY=45&desc=Java%20Developer%20%7C%20Python%20Enthusiast%20%E2%9C%A8&descAlignY=65&descSize=17&descColor=AD1457" width="100%" />
 </p>
 
 <p align="center">
