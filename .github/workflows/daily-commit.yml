@@ -3,7 +3,7 @@ name: Daily README Date Update
 on:
   schedule:
     # Runs every day at 12:00 AM IST (midnight, Asia/Kolkata)
-    - cron: '0 2 * * *'
+    - cron: '17 2 * * *'
       timezone: 'Asia/Kolkata'
   workflow_dispatch:  # Allow manual trigger
 
