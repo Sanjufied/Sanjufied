@@ -74,15 +74,6 @@ public class Sanju {
   <img src="https://skillicons.dev/icons?i=java,python,c,cpp,js,ts,bash&theme=light" />
 </p>
 
-| Technology | Areas of Interest |
-|---|---|
-| ☕ Java | OOP, Collections, Exception Handling, Multithreading, Application Development |
-| 🐍 Python | Automation, Scripting, Data Processing, Problem Solving |
-| C / C++ | Programming Fundamentals, Memory Concepts, Computational Logic |
-| JavaScript | Web Development, Interactive Applications |
-| TypeScript | Typed JavaScript, Modern Application Development |
-| Bash | Shell Scripting, Command-Line Automation |
-
 ### 💗 Backend Development & Frameworks
 
 <p align="left">
