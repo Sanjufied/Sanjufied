@@ -19,7 +19,9 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update last updated date in README.md
+      - name: Update README Date and Push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           DATE_ONLY=$(TZ=Asia/Kolkata date '+%d-%m-%Y')
 
@@ -30,6 +32,7 @@ jobs:
             echo "<!-- Last updated: ${DATE_ONLY} -->" >> README.md
           fi
 
+          # Configure Git with your profile info for contribution credit
           git config user.name "Sanjufied"
           git config user.email "svsanju03@gmail.com"
 
@@ -38,5 +41,7 @@ jobs:
             echo "Date already up to date — no commit needed"
           else
             git commit -m "chore: update README last updated date to ${DATE_ONLY} [skip ci]"
-            git push
+            
+            # Authenticate the push using the workflow token
+            git push https://x-access-token:${GITHUB_TOKEN}@://github.com{{ github.repository }}.git HEAD:${{ github.ref }}
           fi
