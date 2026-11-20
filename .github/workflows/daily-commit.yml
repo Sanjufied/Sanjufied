@@ -2,7 +2,7 @@ name: Daily README Date Update
 
 on:
   schedule:
-    - cron: '30 18 * * *' # 12:00 AM IST
+    - cron: '47 20 * * *' # 12:00 AM IST
   workflow_dispatch:
 
 permissions:
