@@ -2,10 +2,8 @@ name: Daily README Date Update
 
 on:
   schedule:
-    # Runs every day at 12:00 AM IST (midnight, Asia/Kolkata)
-    - cron: '17 2 * * *'
-      timezone: 'Asia/Kolkata'
-  workflow_dispatch:  # Allow manual trigger
+    - cron: '30 18 * * *' # 12:00 AM IST
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -14,6 +12,7 @@ jobs:
   update-date:
     runs-on: ubuntu-latest
     environment: env
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,28 +20,23 @@ jobs:
           token: ${{ secrets.MY_GITHUB_PAT }}
 
       - name: Update README Date and Push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           DATE_ONLY=$(TZ=Asia/Kolkata date '+%d-%m-%Y')
 
-          # Replace the date in the last-updated comment
           if grep -q "Last updated:" README.md; then
             sed -i "s|<!-- Last updated: .* -->|<!-- Last updated: ${DATE_ONLY} -->|" README.md
           else
             echo "<!-- Last updated: ${DATE_ONLY} -->" >> README.md
           fi
 
-          # Configure Git with your profile info for contribution credit
           git config user.name "Sanjufied"
           git config user.email "svsanju03@gmail.com"
 
           git add README.md
+
           if git diff --staged --quiet; then
             echo "Date already up to date — no commit needed"
           else
-            git commit -m "chore: update README last updated date to ${DATE_ONLY} [skip ci]"
-            
-            # Authenticate the push using the workflow token
-            git push https://x-access-token:${GITHUB_TOKEN}@://github.com{{ github.repository }}.git HEAD:${{ github.ref }}
+            git commit -m "chore: update README last updated date to ${DATE_ONLY}"
+            git push origin HEAD:${GITHUB_REF_NAME}
           fi
